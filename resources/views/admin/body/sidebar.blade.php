@@ -44,6 +44,12 @@
                                 </a>
                             </li>
                             <li class="">
+                                <a class="sidenav-item-link" href="{{ route('index.facts') }}">
+                                    <span class="nav-text">Home Facts</span>
+
+                                </a>
+                            </li>
+                            <li class="">
                                 <a class="sidenav-item-link" href="{{ route('index.portfolio') }}">
                                     <span class="nav-text">Home Portfolio</span>
 
