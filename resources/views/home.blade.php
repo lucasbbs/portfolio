@@ -1,3 +1,30 @@
+<style>
+    .header-style {
+        position: relative;
+        z-index: 1;
+        display: flex;
+    }
+
+    .header-style::after {
+        content: '';
+        width: 100%;
+        height: 2px;
+        background: #000000;
+        /* position the line within the parent element */
+        position: absolute;
+        bottom: 0.5em;
+        /* half the height of the text from the bottom */
+        left: 50%;
+        transform: translateX(-50%);
+        /* horizontally center it */
+        z-index: -1;
+        /* display it behind the parent */
+    }
+
+    .header-style::after:hover {
+        background: #173b6c;
+    }
+</style>
 @extends('layouts.master_home')
 @section('home_content')
     @include('layouts.body.hero')
@@ -16,7 +43,11 @@
             <div class="container">
 
                 <div class="section-title">
-                    <h2>About</h2>
+                    <h2 class="header-style" style="padding-bottom: initial">
+                        {{-- /<img height="40px" src="{{ asset('image/header-icons/summary-icon.png') }}" alt="about">  --}}<span
+                            style="background-color: #fff; padding-left: 0.5em; padding-right: 0.5em">About</span>
+                    </h2>
+
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                         consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                         fugiat
@@ -89,7 +120,10 @@
             <div class="container">
 
                 <div class="section-title">
-                    <h2>Facts</h2>
+                    <h2 class="header-style" style="padding-bottom: initial">
+                        {{-- /<img height="40px" src="{{ asset('image/header-icons/summary-icon.png') }}" alt="about">  --}}<span
+                            style="background-color: #fff; padding-left: 0.5em; padding-right: 0.5em">Facts</span>
+                    </h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                         consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                         fugiat
@@ -98,42 +132,17 @@
 
                 <div class="row no-gutters">
 
-                    <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up">
-                        <div class="count-box">
-                            <i class="bi bi-emoji-smile"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p><strong>Happy Clients</strong> consequuntur quae</p>
+                    @foreach ($facts as $key => $fact)
+                        <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up"
+                            data-aos-delay="{{ $key * 100 }}">
+                            <div class="count-box">
+                                <i class="{{ $fact->icon->classes }}"></i>
+                                <span data-purecounter-start="0" data-purecounter-end="{{ $fact->number }}"
+                                    data-purecounter-duration="1" class="purecounter"></span>
+                                <p><strong> {{ $fact->name }} </strong>{{ $fact->description }}</p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="100">
-                        <div class="count-box">
-                            <i class="bi bi-journal-richtext"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p><strong>Projects</strong> adipisci atque cum quia aut</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="200">
-                        <div class="count-box">
-                            <i class="bi bi-headset"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p><strong>Hours Of Support</strong> aut commodi quaerat</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="300">
-                        <div class="count-box">
-                            <i class="bi bi-people"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
-                                class="purecounter"></span>
-                            <p><strong>Hard Workers</strong> rerum asperiores dolor</p>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
 
             </div>
@@ -144,7 +153,10 @@
             <div class="container">
 
                 <div class="section-title">
-                    <h2>Skills</h2>
+                    <h2 class="header-style row" style="padding-bottom: initial">
+                        {{-- /<img height="40px" src="{{ asset('image/header-icons/summary-icon.png') }}" alt="about">  --}}<span
+                            style="background-color: #fff; padding-left: 0.5em; padding-right: 0.5em">Skills</span>
+                    </h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                         consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                         fugiat
@@ -175,7 +187,10 @@
             <div class="container">
 
                 <div class="section-title">
-                    <h2>Resume</h2>
+                    <h2 class="header-style" style="padding-bottom: initial">
+                        {{-- /<img height="40px" src="{{ asset('image/header-icons/summary-icon.png') }}" alt="about">  --}}<span
+                            style="background-color: #fff; padding-left: 0.5em; padding-right: 0.5em">Resume</span>
+                    </h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                         consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                         fugiat
@@ -229,7 +244,10 @@
             <div class="container">
 
                 <div class="section-title" data-aos="fade-up">
-                    <h2>Portfolio</h2>
+                    <h2 class="header-style" style="padding-bottom: initial">
+                        {{-- /<img height="40px" src="{{ asset('image/header-icons/summary-icon.png') }}" alt="about">  --}}<span
+                            style="background-color: #fff; padding-left: 0.5em; padding-right: 0.5em">Portfolio</span>    
+                    </h2>
                 </div>
 
                 <div class="row" data-aos="fade-up">
@@ -270,7 +288,10 @@
             <div class="container">
 
                 <div class="section-title">
-                    <h2>Services</h2>
+                    <h2 class="header-style" style="padding-bottom: initial">
+                        {{-- /<img height="40px" src="{{ asset('image/header-icons/summary-icon.png') }}" alt="about">  --}}<span
+                            style="background-color: #fff; padding-left: 0.5em; padding-right: 0.5em">Services</span>    
+                    </h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                         consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                         fugiat
@@ -295,7 +316,10 @@
             <div class="container">
 
                 <div class="section-title">
-                    <h2>Testimonials</h2>
+                    <h2 class="header-style" style="padding-bottom: initial">
+                        {{-- /<img height="40px" src="{{ asset('image/header-icons/summary-icon.png') }}" alt="about">  --}}<span
+                            style="background-color: #fff; padding-left: 0.5em; padding-right: 0.5em">Testimonials</span>
+                    </h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                         consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                         fugiat
@@ -326,12 +350,14 @@
 
 
         <!-- ======= Contact Section ======= -->
-
         <section id="contact" class="contact">
             <div class="container">
 
                 <div class="section-title">
-                    <h2>Contact</h2>
+                    <h2 class="header-style" style="padding-bottom: initial">
+                        {{-- /<img height="40px" src="{{ asset('image/header-icons/summary-icon.png') }}" alt="about">  --}}<span
+                            style="background-color: #fff; padding-left: 0.5em; padding-right: 0.5em">Contact</span>
+                    </h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
                         consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
                         fugiat
