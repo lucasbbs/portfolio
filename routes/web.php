@@ -6,12 +6,14 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChangePassController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\FactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\TestimonialController;
+use App\Models\Fact;
 use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 
@@ -31,10 +33,10 @@ Route::get('/', function () {
         ->whereNull('deleted_at') // Exclude soft-deleted records
         ->get();
     $about = DB::table('home_abouts')->latest()->first();
-    $images = DB::table('multipics')
-        ->join('tags', 'multipics.tag_id', 'tags.id')
-        ->select('multipics.*', 'tags.name as tag_name')
-        ->get();
+    // $images = DB::table('multipics')
+    //     ->join('tags', 'multipics.tag_id', 'tags.id')
+    //     ->select('multipics.*', 'tags.name as tag_name')
+    //     ->get();
     $portfolios = DB::table('portfolios')
         ->join('tags', 'portfolios.tag_id', 'tags.id')
         ->select('portfolios.*', 'tags.name as tag_name')
@@ -47,7 +49,8 @@ Route::get('/', function () {
     $resumeExperience = DB::table('resumes')->where('section', 'professional_experience')->get();
     $services = Service::all();
     $testimonials = DB::table('testimonials')->get();
-    return view('home', compact('testimonials','contact', 'brands', 'about', 'portfolios', 'tags', 'skills', 'resumeSummary', 'resumeEducation', 'resumeExperience', 'services'));
+    $facts = Fact::all();
+    return view('home', compact('testimonials', 'contact', 'brands', 'about', 'portfolios', 'tags', 'skills', 'resumeSummary', 'resumeEducation', 'resumeExperience', 'services', 'facts'));
 })->name('home');
 
 Route::get('/about', function () {
@@ -218,4 +221,10 @@ Route::get('portfolio/edit/{id}', [PortfolioController::class, 'edit']);
 Route::post('/portfolio/update/{id}', [PortfolioController::class, 'update'])->name('update.portfolio');
 Route::get('/portfolio/delete/{id}', [PortfolioController::class, 'destroy']);
 
-
+// Fact Routes
+Route::get('/home/fact/', [FactController::class, 'index'])->name('index.facts');
+Route::get('/add/fact', [FactController::class, 'create'])->name('add.fact');
+Route::post('/store/fact', [FactController::class, 'store'])->name('store.fact');
+Route::get('fact/edit/{id}', [FactController::class, 'edit']);
+Route::post('/fact/update/{id}', [FactController::class, 'update'])->name('update.fact');
+Route::get('/fact/delete/{id}', [FactController::class, 'destroy']);
